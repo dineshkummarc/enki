@@ -1,0 +1,55 @@
+!!! Strict
+%html{ html_attrs }
+  %head
+    %meta{ :content => "application/xhtml+xml; charset=utf-8", "http-equiv" => "Content-Type" }
+    %title
+      = yield(:page_title) || h(config[:title])
+    = open_id_delegation_link_tags(h(config[:open_id_delegation, :server]), h(config[:open_id_delegation, :delegate])) if config[:open_id_delegation]
+    = javascript_include_tag :mootools
+    = stylesheet_link_tag 'screen', :media => 'screen, projection'
+    = stylesheet_link_tag 'print', :media => 'print'
+    /[if IE]
+      = stylesheet_link_tag 'ie', :media => 'screen, projection'
+    = yield(:head)
+  %body
+    .container
+      #header
+        %h1
+          = link_to h(config[:title]), root_url
+
+        #content
+          = yield
+
+        #sidebar
+          %h2
+            Pages
+          %ul
+            - page_links_for_navigation.each do |link|
+              %li
+                = link_to(h(link.name), link.url)
+          - unless category_links_for_navigation.empty?
+            %h2
+              Categories
+            %ul
+              - category_links_for_navigation.each do |link|
+                %li
+                  = link_to(h(link.name), link.url)
+          %form#sform{ :action => "http://www.google.com/search", :method => "get" }
+            %div
+              %label{ :for => "q" } Search
+              %input#q{ :name => "q", :type => "text", :value => "" }
+              %input{ :name => "sitesearch", :type => "hidden", :value => config[:url] }
+
+        #footer
+          %ul.left
+            %li
+              = link_to config[:title], root_url
+            %li
+              = link_to 'Scroll to Top', '#header', :class => 'scroll_to_top'
+          %ul.right
+            %li
+              = link_to 'Fugue', 'http://pinvoke.com/fugue'
+            %li
+              = link_to 'MooTools', 'http://mootools.net'
+            %li
+              = link_to 'Ruby on Rails', 'http://rubyonrails.org'

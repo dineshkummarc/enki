@@ -1,0 +1,41 @@
+@import blueprint.sass
+@import blueprint/modules/scaffolding.sass
+@import compass.sass
+
+@import lib/mixins.sass
+
++blueprint
++blueprint-scaffolding
+
+body
+
+#header,
+#footer
+  +column(24)
+
+#content
+  +column(17, true)
+  +append(1)
+
+#sidebar
+  +column(6, true)
+
+#footer
+  :margin-top 20px
+  :padding-top 10px
+
+  ul.left
+    +inline-list
+    +float("left")
+    li
+      :margin-right 20px
+
+  ul.right
+    +inline-list
+    +float("right")
+    li
+      :margin-left 20px
+
+a
+  :text-decoration none
+  +link-colors(#000, #ff0080, #0080ff, #666, #0080ff)

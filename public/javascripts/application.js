@@ -1,2 +1,7 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+window.addEvent('domready', function() {
+  $$('#footer a.scroll_to_top').addEvent('click', function(event) {
+    event.preventDefault();
+    var scroll = new Fx.Scroll(window);
+    scroll.toTop();
+  });
+});
